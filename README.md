@@ -1,7 +1,9 @@
 # Stack Exchange Agent Bridge
 
-Personal OAuth write bridge for an AI assistant managing a Stack Exchange account
-through the official [Stack Exchange API](https://api.stackexchange.com/docs).
+Open-source OAuth write bridge connecting an AI assistant to the
+[Stack Exchange API](https://api.stackexchange.com/docs). Any registered Stack
+Exchange user can authorize the app and receive a token for **their own
+account**.
 
 It is **not a content bot**. Every write operation — posting, editing, commenting,
 voting, flagging, accepting — is initiated and approved by the account owner
@@ -10,7 +12,7 @@ notifications (`read_inbox`), replacing manual browser checking.
 
 ## How it works
 
-1. The owner registers an application at [Stack Apps](https://stackapps.com/apps/oauth/register)
+1. The user registers an application at [Stack Apps](https://stackapps.com/apps/oauth/register)
    (OAuth domain: `localhost`) and runs the authorization flow themselves, logging
    in with their own Stack Exchange credentials. **The script never sees a password.**
 2. `auth_flow.py` listens on `127.0.0.1`, captures the OAuth `code`, and exchanges
@@ -18,7 +20,7 @@ notifications (`read_inbox`), replacing manual browser checking.
 3. The token is stored with owner-only permissions (`chmod 600`) outside this
    repository. **No secrets are ever committed here.**
 4. All subsequent API calls use `Authorization: Bearer <token>`; writes appear
-   under the owner's account exactly as if they had used the site.
+   under the user's account exactly as if they had used the site.
 
 The token can be revoked at any time from the Stack Apps App Management page.
 
