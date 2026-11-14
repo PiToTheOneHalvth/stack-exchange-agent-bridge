@@ -35,6 +35,24 @@ python3 auth_flow.py authorize <client_id>
 python3 auth_flow.py exchange <client_id> <client_secret>
 ```
 
+### sewrite.py — owner-approved write helper
+
+Every write command defaults to **dry-run** (prints the exact endpoint and
+payload, sends nothing); append `--send` to perform it.
+
+```bash
+python3 sewrite.py me                     # who the token acts as
+python3 sewrite.py inbox                  # unread inbox items (network-wide)
+python3 sewrite.py inbox --recent         # recent items with read/unread flags
+python3 sewrite.py notifications          # unread notifications
+python3 sewrite.py comment 12345 "text"   # dry-run; add --send to post
+python3 sewrite.py answer 12345 @body.md  # answer from a markdown file
+python3 sewrite.py edit-q 12345 @new.md --title "New title" --summary "why"
+python3 sewrite.py vote a 12345 up        # vote up/down q|a|c, --undo to reverse
+python3 sewrite.py accept 12345           # accept an answer on your question
+python3 sewrite.py flag a 12345 25 --reason "..."   # human-directed flags only
+```
+
 Requires: Python 3.9+ (stdlib only), `curl` for the token exchange.
 
 ## License
