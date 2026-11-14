@@ -1,0 +1,8 @@
+# NEVER commit credentials. The access token lives in ~/.hermes/.env (chmod 600),
+# not in this repository.
+__pycache__/
+*.pyc
+.env
+se_oauth_code.txt
+se_oauth_state.txt
+se_oauth_redirect.txt
