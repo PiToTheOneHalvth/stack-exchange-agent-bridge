@@ -84,7 +84,8 @@ def authorize(client_id, port=8765):
     port = _get_free_port(port)
     state = f"se{int(time.time())}"
     STATE_FILE.write_text(state)
-    redirect_uri = f"http://127.0.0.1:{port}/"
+    # host must match the app's registered OAuth domain literally ("localhost")
+    redirect_uri = f"http://localhost:{port}/"
     REDIRECT_FILE.write_text(redirect_uri)
     url = (f"{AUTHORIZE_URL}?client_id={client_id}"
            f"&scope={urllib.parse.quote(SCOPE, safe='')}"
@@ -111,7 +112,7 @@ def exchange(client_id, client_secret, code_file=None):
     code_file = Path(code_file) if code_file else CODE_FILE
     code = code_file.read_text().strip()
     redirect_uri = REDIRECT_FILE.read_text().strip() if REDIRECT_FILE.exists() \
-        else "http://127.0.0.1:8765/"
+        else "http://localhost:8765/"
     data = urllib.parse.urlencode({
         "client_id": client_id,
         "client_secret": client_secret,

@@ -6,3 +6,4 @@ __pycache__/
 se_oauth_code.txt
 se_oauth_state.txt
 se_oauth_redirect.txt
+app_creds.json
